@@ -27,11 +27,11 @@ const SubCategoryPage: React.FC = () => {
 
   // Fetch categories on page load
   // useEffect(() => {
-  //   axios.get('http://localhost:5000/categories').then((response) => setCategories(response.data));
+  //   axios.get('https://tablesprintbackend.onrender.com/categories').then((response) => setCategories(response.data));
   // }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/subcategories').then((response) => {
+    axios.get('https://tablesprintbackend.onrender.com/subcategories').then((response) => {
       setSubCategories(response.data);
       setFilteredSubCategories(response.data); // Initialize filtered categories
     });
@@ -94,17 +94,17 @@ const SubCategoryPage: React.FC = () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      axios.post('http://localhost:5000/upload', formData).then((response) => {
+      axios.post('https://tablesprintbackend.onrender.com/upload', formData).then((response) => {
         newSubCategory.image_url = response.data.imageUrl;
 
         if (editSubCategory) {
           // Update category
-          axios.put(`http://localhost:5000/subcategories/${editSubCategory.id}`, newSubCategory).then(() => {
+          axios.put(`https://tablesprintbackend.onrender.com/subcategories/${editSubCategory.id}`, newSubCategory).then(() => {
             setSubCategories(subcategories.map((cat) => (cat.id === editSubCategory.id ? { ...editSubCategory, ...newSubCategory } : cat)));
           });
         } else {
           // Add new category
-          axios.post('http://localhost:5000/subcategories', newSubCategory).then((response) => {
+          axios.post('https://tablesprintbackend.onrender.com/subcategories', newSubCategory).then((response) => {
             setSubCategories([...subcategories, { ...newSubCategory, id: response.data.id }]);
           });
         }
@@ -113,12 +113,12 @@ const SubCategoryPage: React.FC = () => {
     } else {
       if (editSubCategory) {
         // Update category
-        axios.put(`http://localhost:5000/subcategories/${editSubCategory.id}`, newSubCategory).then(() => {
+        axios.put(`https://tablesprintbackend.onrender.com/subcategories/${editSubCategory.id}`, newSubCategory).then(() => {
           setSubCategories(subcategories.map((cat) => (cat.id === editSubCategory.id ? { ...editSubCategory, ...newSubCategory } : cat)));
         });
       } else {
         // Add new category
-        axios.post('http://localhost:5000/subcategories', newSubCategory).then((response) => {
+        axios.post('https://tablesprintbackend.onrender.com/subcategories', newSubCategory).then((response) => {
           setSubCategories([...subcategories, { ...newSubCategory, id: response.data.id }]);
         });
       }
@@ -128,7 +128,7 @@ const SubCategoryPage: React.FC = () => {
 
   const handleDeleteSubCategory = () => {
     if (deleteId !== null) {
-      axios.delete(`http://localhost:5000/subcategories/${deleteId}`).then(() => {
+      axios.delete(`https://tablesprintbackend.onrender.com/subcategories/${deleteId}`).then(() => {
         setSubCategories(subcategories.filter((cat) => cat.id !== deleteId));
         setDeleteId(null);
       });
@@ -188,7 +188,7 @@ const SubCategoryPage: React.FC = () => {
               <TableCell sx={{textAlign: 'center'}}>{subcategory.name}</TableCell>
               <TableCell sx={{textAlign: 'center'}}>
                 <img
-                  src={`http://localhost:5000${subcategory.image_url}`}
+                  src={`https://tablesprintbackend.onrender.com${subcategory.image_url}`}
                   alt={subcategory.name}
                   style={{ width: 30, height: 30 }}
                 />

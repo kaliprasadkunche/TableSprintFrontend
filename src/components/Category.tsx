@@ -25,11 +25,11 @@ const CategoryPage: React.FC = () => {
 
   // Fetch categories on page load
   // useEffect(() => {
-  //   axios.get('http://localhost:5000/categories').then((response) => setCategories(response.data));
+  //   axios.get('https://tablesprintbackend.onrender.com/categories').then((response) => setCategories(response.data));
   // }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/categories').then((response) => {
+    axios.get('https://tablesprintbackend.onrender.com/categories').then((response) => {
       setCategories(response.data);
       setFilteredCategories(response.data); // Initialize filtered categories
     });
@@ -90,17 +90,17 @@ const CategoryPage: React.FC = () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      axios.post('http://localhost:5000/upload', formData).then((response) => {
+      axios.post('https://tablesprintbackend.onrender.com/upload', formData).then((response) => {
         newCategory.image_url = response.data.imageUrl;
 
         if (editCategory) {
           // Update category
-          axios.put(`http://localhost:5000/categories/${editCategory.id}`, newCategory).then(() => {
+          axios.put(`https://tablesprintbackend.onrender.com/categories/${editCategory.id}`, newCategory).then(() => {
             setCategories(categories.map((cat) => (cat.id === editCategory.id ? { ...editCategory, ...newCategory } : cat)));
           });
         } else {
           // Add new category
-          axios.post('http://localhost:5000/categories', newCategory).then((response) => {
+          axios.post('https://tablesprintbackend.onrender.com/categories', newCategory).then((response) => {
             setCategories([...categories, { ...newCategory, id: response.data.id }]);
           });
         }
@@ -109,12 +109,12 @@ const CategoryPage: React.FC = () => {
     } else {
       if (editCategory) {
         // Update category
-        axios.put(`http://localhost:5000/categories/${editCategory.id}`, newCategory).then(() => {
+        axios.put(`https://tablesprintbackend.onrender.com/categories/${editCategory.id}`, newCategory).then(() => {
           setCategories(categories.map((cat) => (cat.id === editCategory.id ? { ...editCategory, ...newCategory } : cat)));
         });
       } else {
         // Add new category
-        axios.post('http://localhost:5000/categories', newCategory).then((response) => {
+        axios.post('https://tablesprintbackend.onrender.com/categories', newCategory).then((response) => {
           setCategories([...categories, { ...newCategory, id: response.data.id }]);
         });
       }
@@ -124,7 +124,7 @@ const CategoryPage: React.FC = () => {
 
   const handleDeleteCategory = () => {
     if (deleteId !== null) {
-      axios.delete(`http://localhost:5000/categories/${deleteId}`).then(() => {
+      axios.delete(`https://tablesprintbackend.onrender.com/categories/${deleteId}`).then(() => {
         setCategories(categories.filter((cat) => cat.id !== deleteId));
         setDeleteId(null);
       });
@@ -182,7 +182,7 @@ const CategoryPage: React.FC = () => {
               <TableCell sx={{textAlign: 'center'}}>{category.name}</TableCell>
               <TableCell sx={{textAlign: 'center'}}>
                 <img
-                  src={`http://localhost:5000${category.image_url}`}
+                  src={`https://tablesprintbackend.onrender.com${category.image_url}`}
                   alt={category.name}
                   style={{ width: 30, height: 30 }}
                 />

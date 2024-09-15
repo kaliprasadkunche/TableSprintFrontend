@@ -30,7 +30,7 @@ const ProductPage: React.FC = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:5000/product').then((response) => {
+    axios.get('https://tablesprintbackend.onrender.com/product').then((response) => {
       setProduct(response.data);
       setFilteredProduct(response.data); // Initialize filtered categories
     });
@@ -95,17 +95,17 @@ const ProductPage: React.FC = () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      axios.post('http://localhost:5000/upload', formData).then((response) => {
+      axios.post('https://tablesprintbackend.onrender.com/upload', formData).then((response) => {
         newProduct.image_url = response.data.imageUrl;
 
         if (editProduct) {
           // Update Product
-          axios.put(`http://localhost:5000/product/${editProduct.id}`, newProduct).then(() => {
+          axios.put(`https://tablesprintbackend.onrender.com/product/${editProduct.id}`, newProduct).then(() => {
             setProduct(product.map((cat) => (cat.id === editProduct.id ? { ...editProduct, ...newProduct } : cat)));
           });
         } else {
           // Add new category
-          axios.post('http://localhost:5000/product', newProduct).then((response) => {
+          axios.post('https://tablesprintbackend.onrender.com/product', newProduct).then((response) => {
             setProduct([...product, { ...newProduct, id: response.data.id }]);
           });
         }
@@ -114,12 +114,12 @@ const ProductPage: React.FC = () => {
     } else {
       if (editProduct) {
         // Update category
-        axios.put(`http://localhost:5000/product/${editProduct.id}`, newProduct).then(() => {
+        axios.put(`https://tablesprintbackend.onrender.com/product/${editProduct.id}`, newProduct).then(() => {
           setProduct(product.map((cat) => (cat.id === editProduct.id ? { ...editProduct, ...newProduct } : cat)));
         });
       } else {
         // Add new category
-        axios.post('http://localhost:5000/product', newProduct).then((response) => {
+        axios.post('https://tablesprintbackend.onrender.com/product', newProduct).then((response) => {
           setProduct([...product, { ...newProduct, id: response.data.id }]);
         });
       }
@@ -133,7 +133,7 @@ const ProductPage: React.FC = () => {
 
   const handleDeleteProduct = () => {
     if (deleteId !== null) {
-      axios.delete(`http://localhost:5000/product/${deleteId}`).then(() => {
+      axios.delete(`https://tablesprintbackend.onrender.com/product/${deleteId}`).then(() => {
         setProduct(product.filter((cat) => cat.id !== deleteId));
         setDeleteId(null);
       });
@@ -195,7 +195,7 @@ const ProductPage: React.FC = () => {
               <TableCell sx={{textAlign: 'center'}}>{product.name}</TableCell>
               <TableCell sx={{textAlign: 'center'}}>
                 <img
-                  src={`http://localhost:5000${product.image_url}`}
+                  src={`https://tablesprintbackend.onrender.com${product.image_url}`}
                   alt={product.name}
                   style={{ width: 30, height: 30 }}
                 />

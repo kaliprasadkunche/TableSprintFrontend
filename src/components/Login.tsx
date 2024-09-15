@@ -18,7 +18,7 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('https://tablesprintbackend.onrender.com/login', { email, password });
       const { token } = response.data;
       localStorage.setItem('token', token); // Save token to localStorage
       console.log('Token received:', token);
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
 
   const handleSendResetLink = async () => {
     try {
-      await axios.post('http://localhost:5000/forgot-password', { email: forgotPasswordEmail });
+      await axios.post('https://tablesprintbackend.onrender.com/forgot-password', { email: forgotPasswordEmail });
       alert('Reset password link sent to your email.');
       handleForgotPasswordClose();
     } catch (error) {

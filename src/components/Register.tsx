@@ -21,7 +21,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/register', { email, password });
+      const response = await axios.post('https://tablesprintbackend.onrender.com/register', { email, password });
       console.log(response.data);
       navigate('/login');
     } catch (error) {
